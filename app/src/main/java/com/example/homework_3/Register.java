@@ -1,5 +1,6 @@
 package com.example.homework_3;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Register extends AppCompatActivity {
@@ -36,23 +38,48 @@ public class Register extends AppCompatActivity {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(Register.this);
+
+
                 username = txtUsername2.getText().toString();
                 password = txtPassword2.getText().toString();
                 re_password = txtRepeatPassword.getText().toString();
-                if(password.equals(re_password)){
-                    editor = sharedPreferences.edit();
-                    editor.putString("username", username);
-                    editor.putString("password", password);
-                    editor.apply();
-
-                    Intent I1= new Intent(Register.this,Login.class);
-                    startActivity(I1);
-
-                    Toast.makeText(Register.this, "Kayıt Başarılı..", Toast.LENGTH_SHORT).show();
+                if(username.isEmpty()||password.isEmpty()||re_password.isEmpty()){
+                    builder.setTitle("Uyarı").setMessage("Alanlar boş olamaz!!").setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
                 }
-               else if(!password.equals(re_password)){
+                else if(!password.equals(re_password)){
                     Toast.makeText(Register.this, "Şifreler Eşleşmiyor!!", Toast.LENGTH_SHORT).show();
                 }
+                else{
+                    if(password.equals(re_password)){
+                        editor = sharedPreferences.edit();
+                        editor.putString("username", username);
+                        editor.putString("password", password);
+                        editor.apply();
+
+
+                        builder.setTitle("Başarılı..").setMessage("Kayıt başarılı anasayfaya yönlendiriliyorsunuz..").setPositiveButton("Tamam", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent I1= new Intent(Register.this,Login.class);
+                                startActivity(I1);
+                            }
+                        });
+                        AlertDialog alertDialog = builder.create();
+                        alertDialog.show();
+                    }
+
+                }
+
             }
         });
     }

@@ -77,6 +77,7 @@ public class Login extends AppCompatActivity {
                     builder.setTitle("Uyarı").setMessage("Kullanıcı adı veya Parola boş olamaz!!").setPositiveButton("Tamam", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+
                             dialog.dismiss();
                         }
 

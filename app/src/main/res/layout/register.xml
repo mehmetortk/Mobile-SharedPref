@@ -32,6 +32,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="130dp"
         android:layout_marginTop="175dp"
+        android:maxLength="6"
         android:ems="10"
         android:inputType="textPassword" />
 
@@ -44,6 +45,7 @@
         android:layout_marginStart="129dp"
         android:layout_marginTop="255dp"
         android:ems="10"
+        android:maxLength="6"
         android:inputType="textPassword" />
 
     <Button
